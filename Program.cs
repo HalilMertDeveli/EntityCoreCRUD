@@ -71,11 +71,40 @@ namespace project_for_six_week
             //crudOperationDeleteInstance.DeleteFromBooks(authorContext, 13, "GG");//working
             // crudOperationDeleteInstance.DeleteFromAuthorInfo(authorContext, 13, "F. Scott Fitzgerald was an American novelist...");
             #endregion
-
+            #region UpdateOpertion
             CrudOperationUpdate crudOperationUpdateInstance = new CrudOperationUpdate();
             //crudOperationUpdateInstance.UpdateAuthor(authorContext, 1, "HMDSS", "Develi", "TR");//working
             //crudOperationUpdateInstance.UpdateBook(authorContext, 1, "Irade Terbiyesi"); // working
             //crudOperationUpdateInstance.UpdateAuthorInfo(authorContext, 1, "Yenikapı");//working
+            #endregion
+
+            CrudSelectOperation crudSelectOperationInstance = new CrudSelectOperation();
+            //List<Author> authors = crudSelectOperationInstance.GetAuthors(authorContext);//working
+            //foreach (var authorInstance in authors)
+            //{
+            //    Console.WriteLine(authorInstance.AuthorId);
+            //    Console.WriteLine(authorInstance.AuthorName);
+            //    Console.WriteLine(authorInstance.AuthorLastName);
+            //    Console.WriteLine(authorInstance.AuthorNationality);
+            //    Console.WriteLine("-----");
+
+            //}
+            //List<Book> books = crudSelectOperationInstance.GetBooks(authorContext); // working
+            //foreach (var bookInstance in books)
+            //{
+            //    Console.WriteLine(bookInstance.BookID);
+            //    Console.WriteLine(bookInstance.BookName);
+            //    Console.WriteLine("------");
+            //}
+            List<AuthorInfo> authorInfos = crudSelectOperationInstance.GetAuthorInfos(authorContext);
+            foreach (var authorInfoInstance in authorInfos)
+            {
+                Console.WriteLine(authorInfo.AuthorId);
+                Console.WriteLine(authorInfo.AuthorInformation);
+                Console.WriteLine(authorInfo.AwardsReceived);
+                Console.WriteLine(authorInfo.FamousWork);
+                Console.WriteLine("-------");
+            }
 
             Console.WriteLine("1 -1 and 1 - to many example for week 6, Add operation is done" +
                 "Delete operation is done" +
@@ -243,5 +272,25 @@ public class CrudOperationUpdate
             context.Entry(authorInfoForUpdate).State = EntityState.Modified;
             context.SaveChanges();
         }
+    }
+}
+
+public class CrudSelectOperation
+{
+    public List<Author> GetAuthors(AuthorContext context)
+    {
+        List<Author> author = context.AuthorDbSet.ToList();
+        return author;
+    }
+    public List<Book> GetBooks(AuthorContext context)
+    {
+        List<Book> book = context.BookDbSet.ToList();
+        return book;
+    }
+    public List<AuthorInfo> GetAuthorInfos(AuthorContext context)
+    {
+        List<AuthorInfo> AuthorInfos = context.AuthorInfoDbSet.ToList();
+        return AuthorInfos;
+
     }
 }
